@@ -5,9 +5,6 @@ from sklearn import ensemble
 from sklearn.decomposition import TruncatedSVD
 from sklearn.cluster import KMeans
 import forest_cluster as rfc
-from forest_cluster.forest_clustering import random_forest_dissimilarity
-from forest_cluster.similarity import matching_dist
-from forest_cluster.tests.fixtures import generate_clustered_data
 from forest_cluster import KMedoids
 import numpy as np
 from mysuper.datasets import fetch_cars, fetch_10kdiabetes
@@ -52,13 +49,13 @@ def fast_hamming_dense(X):
         H += (U * U.transpose()).toarray()
     return 1 - H.astype(np.float64) / X.shape[1]
 
-#X = fetch_cars().values
-X = fetch_10kdiabetes(one_hot=False).values
+X = fetch_cars().values
+#X = fetch_10kdiabetes(one_hot=False).values
 
 n_trees = 5000
 print('tree embedding')
 t0 = time.time()
-rf = rfc.RandomTreesEmbedding(n_estimators=n_trees, random_state=10, n_jobs=-1, sparse_output=False)
+rf = rfc.RandomForestEmbedding(n_estimators=n_trees, random_state=10, n_jobs=-1, sparse_output=False)
 leaves = rf.fit_transform(X)
 print('time: %r s', time.time() - t0)
 
