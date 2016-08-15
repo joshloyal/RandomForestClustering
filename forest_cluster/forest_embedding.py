@@ -180,7 +180,7 @@ class RandomForestEmbedding(BaseForest):
                  random_state=None,
                  verbose=0,
                  warm_start=False):
-        super(RandomTreesEmbedding, self).__init__(
+        super(RandomForestEmbedding, self).__init__(
                 base_estimator=DecisionTreeClassifier(),
                 n_estimators=n_estimators,
                 estimator_params=("criterion", "max_depth", "min_samples_split",
@@ -218,10 +218,10 @@ class RandomForestEmbedding(BaseForest):
             # ensemble sorts the indices.
             X.sort_indices()
 
-        X_, y_ = generate_discrimative_dataset(X)
+        X_, y_ = generate_discriminative_dataset(X)
 
-        super(RandomTreesEmbedding, self).fit(X_, y_,
-                                              sample_weight=sample_weight)
+        super(RandomForestEmbedding, self).fit(X_, y_,
+                                               sample_weight=sample_weight)
 
         self.one_hot_encoder_ = OneHotEncoder(sparse=True)
         if self.sparse_output:
